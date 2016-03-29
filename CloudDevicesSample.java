@@ -30,9 +30,9 @@ public class CloudDevicesSample {
 
   // See https://developers.google.com/weave/v1/dev-guides/getting-started/authorizing#setup
   // on how to set up your project and obtain client ID, client secret and API key.
-  private static final String CLIENT_ID = "309435708548-fsvfu060n29531ufr5qqqgf7t2jhhvan.apps.googleusercontent.com";
-  private static final String CLIENT_SECRET = "oFWicANTZPjRLdyC-gcJZdw-";
-  private static final String API_KEY = "AIzaSyDaR-PSdRK0psv1ZyDcaY2n2UFpZWui2UE";
+ private static final String CLIENT_ID = "593065169550-8o2r95tnqqtqmfgsgv5qn1e1u16hdr0h.apps.googleusercontent.com";
+  private static final String CLIENT_SECRET = "NtViFQ_4_urrOvv_I1Cex6d2";
+  private static final String API_KEY = "AIzaSyA1mndDPfSWoFy2vYxJZy9DUukvVK9bSS4";
   private static final String AUTH_SCOPE = "https://www.googleapis.com/auth/weave.app";
 
   // Redirect URL for client side installed apps.
@@ -96,22 +96,20 @@ public class CloudDevicesSample {
       //device = devices.get(0);
       for(Device dev : devices){
         System.out.println("Available device: " + dev.getId());
-        try {
+        /*try {*/
           // More about commands and command definitions:
           // https://developers.google.com/weave/v1/dev-guides/getting-started/commands-intro
-          System.out.println(
-              "Command definitions:\n" + jsonFactory.toPrettyString(dev.getCommandDefs()));
-        }  catch (IOException e) { throw new RuntimeException(e); }
-      }
-    }
-     
-    /*System.out.println("Sending a new command to the device");
+          /*=System.out.println(
+              "Command definitions:\n" + jsonFactory.toPrettyString(dev.getCommandDefs()));*/
+              if(dev.getId().equals("a5c8d231-ba84-1d32-b499-5246077f98ee")) {
+    System.out.println("Sending a new command to the device");
     Map<String, Object> parameters = new HashMap<String, Object>();
-    parameters.put("path", "/tmp");
+    String str = new String("standby");
+    parameters.put("state", str);
     Command command = new Command()
-        .setName("storage.list")  // Command name to execute.
+        .setName("onOff.setConfig")  // Command name to execute.
         .setParameters(parameters)  // Required command parameter.
-        .setDeviceId(device.getId());  // Device to send the command to.
+        .setDeviceId(dev.getId());  // Device to send the command to.
     // Calling commands.insert method to send command to the device, more details about the method:
     // https://developers.google.com/weave/v1/reference/cloud-api/commands/insert
     try {
@@ -123,7 +121,18 @@ public class CloudDevicesSample {
     // device does not actually receive any commands, so it will never be executed.
     try {
       System.out.println("Sent command to the device:\n" + jsonFactory.toPrettyString(command));
-    } catch (IOException e) { throw new RuntimeException(e); }*/
+      System.out.println("current Status of the device "+ jsonFactory.toPrettyString(dev.getState()));
+      /*JsonObjectParser obj = dev.getState();
+      namedd = (String)obj.get("onOff");
+      System.out.println(namedd);*/
+    } catch (IOException e) { throw new RuntimeException(e); }
+
+        
+        /*}  catch (IOException e) { throw new RuntimeException(e); }*/
+      }
+      }
+    }
+     
   }
    
 
